@@ -1,0 +1,32 @@
+<UserControl x:Class="SchoolFeesManager.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="Settings" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            
+            <GroupBox Header="School Information">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox materialDesign:HintAssist.Hint="School Name" Text="Sunrise International School" Margin="0,0,10,0"/>
+                    <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Address" Text="123 Education Lane" Margin="10,0,0,0"/>
+                </Grid>
+            </GroupBox>
+            
+             <GroupBox Header="Application Settings" Margin="0,20,0,0">
+                <StackPanel>
+                    <CheckBox Content="Enable Dark Mode" Margin="0,0,0,10"/>
+                    <CheckBox Content="Auto-Backup Database" IsChecked="True"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,14 @@
+
+# Visual Studio
+.vs/
+[Bb]in/
+[Oo]bj/
+*.suo
+*.user
+
+# Unity/Other (Just in case)
+*.pidb
+*.booproj
+
+# OS X
+.DS_Store

@@ -1,0 +1,55 @@
+<UserControl x:Class="SchoolFeesManager.Views.FeesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodels="clr-namespace:SchoolFeesManager.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:FeesViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Fee Structure Configuration" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <!-- Actions -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Add Fee Component">
+                <Button.Content>
+                     <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" Margin="0,0,5,0"/>
+                        <TextBlock Text="Add Fee Component"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <!-- Fee Structure List -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding FeeStructures}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+             <DataGrid.Columns>
+                <DataGridTextColumn Header="Fee Name" Binding="{Binding FeeName}" Width="2*"/>
+                <DataGridTextColumn Header="Class" Binding="{Binding ClassName}" Width="*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Optional" Binding="{Binding IsOptional}" Width="Auto"/>
+                 <DataGridTemplateColumn Header="Actions" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Edit">
+                                <materialDesign:PackIcon Kind="Pencil" Width="16" Height="16"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

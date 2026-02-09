@@ -1,0 +1,97 @@
+<UserControl x:Class="SchoolFeesManager.Views.StudentListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodels="clr-namespace:SchoolFeesManager.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:StudentsViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search and Actions -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Search Bar -->
+            <materialDesign:Card UniformCornerRadius="20" Padding="4" Width="400" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center" Margin="10,0"/>
+                    <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Search by Name, Key, Class..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" VerticalAlignment="Center" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </materialDesign:Card>
+
+            <!-- Action Buttons -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,10,0" ToolTip="Filter">
+                    <materialDesign:PackIcon Kind="FilterVariant"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,10,0" ToolTip="Export">
+                    <materialDesign:PackIcon Kind="FileExport"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Command="{Binding AddStudentCommand}" ToolTip="Add New Student">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" Margin="0,0,5,0"/>
+                        <TextBlock Text="Add Student"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Student List -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Students}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" headersVisibility="Column">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Key" Binding="{Binding StudentKey}" Width="100"/>
+                <DataGridTemplateColumn Header="Name" Width="2*">
+                     <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountCircle" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="Gray"/>
+                                <TextBlock Text="{Binding FullName}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Class" Binding="{Binding ClassName}" Width="80"/>
+                <DataGridTextColumn Header="Section" Binding="{Binding Section}" Width="80"/>
+                <DataGridTextColumn Header="Parent" Binding="{Binding ParentName}" Width="1.5*"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding PhoneNumber}" Width="120"/>
+                <DataGridTemplateColumn Header="Actions" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Edit">
+                                    <materialDesign:PackIcon Kind="Pencil" Width="16" Height="16"/>
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Fees">
+                                    <materialDesign:PackIcon Kind="CurrencyUsd" Width="16" Height="16"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
